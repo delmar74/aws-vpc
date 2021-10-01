@@ -1,7 +1,7 @@
 # aws-vpc
 
 
-#### How it works
+# How it works
 
 **Amazon Virtual Private Cloud (VPC)** gives you complete control over your virtual networking environment including resource placement, connectivity, and security.
 
@@ -21,4 +21,19 @@ In this case network traffic is being shared between two VPCs within each region
 - [HashiCorp Learn > Get Started - AWS](https://learn.hashicorp.com/collections/terraform/aws-get-started)
 - [(Book) Terraform Up and Running](https://github.com/shakthi-divyaa/books-1/blob/master/dev-ops/terraform/terraform-up-and-running.pdf)
 - [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+
+# Task
+
+Create a terraform template for AWS VPC. We will use this VPC later for running our workloads
+
+A template should contain the following resources:
+- VPC
+- At least two public subnets
+- At least two private subnets
+- Internet gateway
+- At least two NAT gateways
+- Public route table
+- Private route table
+
+You should be able to launch a virtual machine in a private subnet, establish an SSH connection to it, and download updates from the internet.
 
