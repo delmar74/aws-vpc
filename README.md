@@ -27,6 +27,8 @@ In this case network traffic is being shared between two VPCs within each region
 
 ![image](https://eadn-wc03-4064062.nxedge.io/cdn/wp-content/uploads/2020/11/Picture2-2.png)
 
+![image](https://jayendrapatil.com/wp-content/uploads/2016/03/AWS-VPC-Components.png)
+
 #### Links
 
 - [VPC with public and private subnets (NAT)](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario2.html)
