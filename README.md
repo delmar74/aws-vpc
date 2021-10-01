@@ -20,3 +20,5 @@ In this case network traffic is being shared between two VPCs within each region
 - [VPC with public and private subnets (NAT)](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario2.html)
 - [HashiCorp Learn > Get Started - AWS](https://learn.hashicorp.com/collections/terraform/aws-get-started)
 - [(Book) Terraform Up and Running](https://github.com/shakthi-divyaa/books-1/blob/master/dev-ops/terraform/terraform-up-and-running.pdf)
+- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+
