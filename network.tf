@@ -1,20 +1,15 @@
-locals {
-    public_cidr = ["10.0.0.0/24", "10.0.1.0/24"]
-    private_cidr = ["10.0.10.0/24", "10.0.11.0/24"]
-}
-
 # VPC
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.base_cidr_block
 }
 
 # subnet
 resource "aws_subnet" "public" {
-
-  count = 2
+  count             = length(var.availability_zones)
+  availability_zone = var.availability_zones[count.index]
 
   vpc_id     = aws_vpc.main.id
-  cidr_block = local.public_cidr[count.index]
+  cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index + 1)
 
   tags = {
     Name = "public${count.index}"
@@ -22,10 +17,11 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  count = 2
+  count             = length(var.availability_zones)
+  availability_zone = var.availability_zones[count.index]
 
   vpc_id     = aws_vpc.main.id
-  cidr_block = local.private_cidr[count.index]
+  cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index + 11)
 
   tags = {
     Name = "private${count.index}"
@@ -43,14 +39,14 @@ resource "aws_internet_gateway" "igw" {
 
 # EIP
 resource "aws_eip" "nat" {
-  count = 2
+  count = length(var.availability_zones)
 
-  vpc      = true
+  vpc = true
 }
 
 # NGW
 resource "aws_nat_gateway" "ngw" {
-  count = 2 
+  count = length(var.availability_zones)
 
   allocation_id = aws_eip.nat[count.index].id
   subnet_id     = aws_subnet.public[count.index].id
@@ -58,7 +54,6 @@ resource "aws_nat_gateway" "ngw" {
   tags = {
     Name = "main"
   }
-  #depends_on = [aws_internet_gateway.example]
 }
 
 # route tables (public and private)
@@ -76,13 +71,13 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table" "private" {
-  count = 2
+  count = length(var.availability_zones)
 
   vpc_id = aws_vpc.main.id
 
   route {
-    cidr_block = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.ngw[count.index].id 
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.ngw[count.index].id
   }
 
   tags = {
