@@ -1,9 +1,3 @@
-variable "region" {
-  description = "Region of VPC"
-  type        = string
-  default     = "us-east-1"
-}
-
 variable "availability_zones" {
   description = "A list of availability zones in which to create subnets"
   type        = list(string)
