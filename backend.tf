@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "delmar-tf-state-storage"
+    bucket = "delmar-tf-state"
     key    = "tfstates/terraform.tfstate"
-    region = "eu-north-1"
+    region = "us-east-1"
   }
 }

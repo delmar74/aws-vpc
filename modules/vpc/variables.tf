@@ -1,3 +1,8 @@
+variable "env_id" {
+  description = "Environment Name"
+  type        = string
+}
+
 variable "availability_zones" {
   description = "A list of availability zones in which to create subnets"
   type        = list(string)
