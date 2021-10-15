@@ -1,6 +1,10 @@
 # VPC
 resource "aws_vpc" "main" {
   cidr_block = var.base_cidr_block
+
+  tags = {
+    Name = "${var.env_id}-vpc"
+  }
 }
 
 # subnet
@@ -12,7 +16,7 @@ resource "aws_subnet" "public" {
   cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index + 1)
 
   tags = {
-    Name = "public${count.index}"
+    Name = "${var.env_id}-${count.index}-public-subnet"
   }
 }
 
@@ -24,7 +28,7 @@ resource "aws_subnet" "private" {
   cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index + 11)
 
   tags = {
-    Name = "private${count.index}"
+    Name = "${var.env_id}-${count.index}-private-subnet"
   }
 }
 
@@ -33,7 +37,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "main"
+    Name = "${var.env_id}-igw"
   }
 }
 
@@ -42,6 +46,10 @@ resource "aws_eip" "nat" {
   count = length(var.availability_zones)
 
   vpc = true
+
+  tags = {
+    Name = "${var.env_id}-${count.index}-eip"
+  }
 }
 
 # NGW
@@ -52,7 +60,7 @@ resource "aws_nat_gateway" "ngw" {
   subnet_id     = aws_subnet.public[count.index].id
 
   tags = {
-    Name = "main"
+    Name = "${var.env_id}-${count.index}-ngw"
   }
 }
 
@@ -66,7 +74,7 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-    Name = "public"
+    Name = "${var.env_id}-public-rt"
   }
 }
 
@@ -81,6 +89,6 @@ resource "aws_route_table" "private" {
   }
 
   tags = {
-    Name = "private${count.index}"
+    Name = "${var.env_id}-${count.index}-private-rt"
   }
 }

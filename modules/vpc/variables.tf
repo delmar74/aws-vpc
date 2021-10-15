@@ -1,7 +1,6 @@
-variable "region" {
-  description = "Region of VPC"
+variable "env_id" {
+  description = "Environment Name"
   type        = string
-  default     = "us-east-1"
 }
 
 variable "availability_zones" {
