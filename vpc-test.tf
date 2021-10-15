@@ -1,6 +1,4 @@
-
 module "vpc-test" {
-
   source = "./modules/vpc"
 
   env_id             = "test"
