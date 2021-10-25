@@ -1,3 +1,9 @@
+variable "region" {
+  description = "A region"
+  type        = string
+  default     = "us-east-1"
+}
+
 variable "env_id" {
   description = "Environment Name"
   type        = string
@@ -6,7 +12,7 @@ variable "env_id" {
 variable "availability_zones" {
   description = "A list of availability zones in which to create subnets"
   type        = list(string)
-  default     = ["us-east-1b", "us-east-1d"]
+  default     = []
 }
 
 variable "base_cidr_block" {
